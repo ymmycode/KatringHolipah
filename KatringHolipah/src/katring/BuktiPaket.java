@@ -5,6 +5,24 @@
  */
 package katring;
 
+import com.mysql.jdbc.Connection;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+
 /**
  *
  * @author achma
@@ -14,8 +32,51 @@ public class BuktiPaket extends javax.swing.JFrame {
     /**
      * Creates new form BuktiPaket
      */
-    public BuktiPaket() {
+    Connection connection;
+    Statement stat,stat1,stat2;
+    ResultSet rs;
+    String total, sql, sql1, sql2, roleDB, idPesan;
+    public BuktiPaket(String id) {
         initComponents();
+        ConnectionDB condb = new ConnectionDB();
+        condb.Config();
+        connection = (Connection) condb.connect;
+        stat = (com.mysql.jdbc.Statement) condb.stmt;
+        idPesan = id;
+        BuktiPaket();
+    }
+
+    private BuktiPaket() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    void BuktiPaket()
+    {
+        try{
+            ConnectionDB condb = new ConnectionDB();
+            condb.Config();
+            connection = (Connection) condb.connect;
+            stat = (com.mysql.jdbc.Statement) condb.stmt;
+            
+            Map prs = new HashMap();
+        
+            InputStream filePath = getClass().getResourceAsStream("/Report/BuktiPaket.jrxml");
+            JasperDesign jd1 = JRXmlLoader.load (filePath);
+            
+            sql = "select paket.idPesan, paket.tanggal, paket.nama, paket.detail, bayarpaket.harga, paket.alamat, paket.status from paket,bayarpaket where paket.idPesan = '"+idPesan+"' AND paket.idPesan = bayarpaket.idPesan";
+            JRDesignQuery newQuery = new JRDesignQuery();
+            newQuery.setText(sql);
+            jd1.setQuery(newQuery);
+            JasperReport Jrpt1 = JasperCompileManager.compileReport(jd1);
+            JasperPrint jp1 = JasperFillManager.fillReport(Jrpt1, prs,condb.connect);
+            net.sf.jasperreports.view.JRViewer viewer1 = new net.sf.jasperreports.view.JRViewer(jp1);
+            Container c1 = getContentPane();
+            c1.setLayout(new BorderLayout());
+            c1.add(viewer1);
+        
+        }catch(JRException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -27,7 +88,7 @@ public class BuktiPaket extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

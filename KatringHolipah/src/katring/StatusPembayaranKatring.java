@@ -85,6 +85,7 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,7 +158,7 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -193,6 +194,14 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("XX");
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Cancel Pesanan");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,9 +217,11 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addGap(38, 38, 38))
         );
@@ -225,7 +236,8 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
-                        .addComponent(jButton2))
+                        .addComponent(jButton2)
+                        .addComponent(jButton3))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jLabel3)))
@@ -250,6 +262,10 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
+        int row = jTable2.getSelectedRow();
+        id = jTable2.getModel().getValueAt(row, 0).toString();
+        
+        jLabel3.setText(id);
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -275,6 +291,84 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
         jLabel3.setText(id);
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        //delete katring dan bayar katring
+        
+        try {
+            // TODO add your handling code here:
+            //quit the launcher
+            
+             
+            int response = JOptionPane.showConfirmDialog(this, "Apakah Anda Yakin Menggagalkan Pesanan yang terpilih?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            switch (response) {
+                case JOptionPane.YES_OPTION:
+                    // delete user,saveddata, savedoption
+                    
+                    id = jLabel3.getText();
+
+                    
+                    sql = "SELECT * FROM catering WHERE idPesan = '"+id+"'";
+                    rs = stat.executeQuery(sql);
+                    try {
+                        if(rs.next()){
+                            Delete(id);
+                            JOptionPane.showMessageDialog(null, "Berhasil");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Lanjutkan");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    sql = "SELECT * FROM bayarcatering WHERE idPesan = '"+id+"'";
+                    rs = stat.executeQuery(sql);
+                    try {
+                        if(rs.next()){
+                            Delete2(id);
+                            JOptionPane.showMessageDialog(null, "Berhasil");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Lanjutkan");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    TableDP();
+                    TableFull();
+                    stat.close();
+                    jLabel3.setText("XX");
+                    //this.dispose();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    break;
+                case JOptionPane.CLOSED_OPTION:
+                    break;
+                default:
+                    break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusPembayaranKatring.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    void Delete(String idPesan) throws SQLException
+    {
+        //delete user
+        sql = "DELETE FROM catering WHERE idPesan='"+idPesan+"'";
+        stat.executeUpdate(sql);
+        //stat.close();
+    }
+    
+    void Delete2(String idPesan) throws SQLException
+    {
+        //delete user
+        
+        sql = "DELETE FROM bayarcatering WHERE idPesan='"+idPesan+"'";
+        stat.executeUpdate(sql);
+        //stat1.close();
+    }
+    
     void UpdateStat() throws SQLException {
         //full design
         //insert design == tailor
@@ -332,6 +426,7 @@ public class StatusPembayaranKatring extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cee372c2-facb-44b8-bf93-28f64a03f074">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select paket.idPesan, paket.tanggal,paket.nama, paket.detail, paket.status
+from paket, bayarpaket where paket.idPesan = bayarpaket.idPesan]]>
+	</queryString>
+	<field name="idPesan" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="detail" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<image isUsingCache="true">
+				<reportElement uuid="9b06a7de-f85a-41fc-9722-b525529a0747" x="10" y="10" width="99" height="132"/>
+				<imageExpression><![CDATA["https://drive.google.com/uc?export=view&id=1cXqdsfZsshgdnf8FbjFGhz2bUKS3rGzA"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="a9d8448e-4758-405e-93e0-1482acb8515c" x="139" y="106" width="302" height="36"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="22" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Pemesanan Paket]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="735391a4-01cf-4c83-a26d-e4d3081e2703" style="Title" x="139" y="10" width="380" height="66" forecolor="#000000"/>
+				<textElement>
+					<font size="44" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Catering Ibu Holipah]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f0dd9f08-b524-4a76-91a8-0f1b42b39ac0" style="Column header" x="0" y="0" width="159" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[No. Pesan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d6dadb4-52fc-4338-b9ec-3372891a6268" style="Column header" x="159" y="0" width="159" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e060f6c6-a9c8-4d80-b74b-8a8f189f8ea3" style="Column header" x="318" y="0" width="159" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35838e1c-4dea-49dd-ace4-3c38433b63aa" style="Column header" x="477" y="0" width="159" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Detail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ac1ffc8-7643-49d3-bbf6-86558fffb3eb" style="Column header" x="636" y="0" width="159" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="e30b52fd-7e91-4bdf-b069-4edf7d76fdf8" style="Row" mode="Opaque" x="0" y="0" width="797" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="745b2495-5222-40eb-97f3-e94e1d8c97c6" style="Detail" positionType="Float" x="0" y="0" width="159" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idPesan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="54f691e2-ac39-43ee-911a-da6b1ba2639c" style="Detail" positionType="Float" x="159" y="0" width="159" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="1be399e1-dd29-4c0b-a052-2968f72129b9" style="Detail" positionType="Float" x="318" y="0" width="159" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="8c097c4b-f6ae-4c8b-8046-d59f8e837d27" style="Detail" positionType="Float" x="477" y="0" width="159" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{detail}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="40a8dba0-ceae-48a0-98cd-4c8133064279" style="Detail" positionType="Float" x="636" y="0" width="159" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="cfe813b0-dd81-474f-b566-17ab8b7da9b8" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="131" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="914a09c5-eebd-4d39-8706-0a71aa464a95" style="Column header" x="636" y="10" width="166" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c4245620-cf6a-4053-b19c-78112b39499a" x="679" y="104" width="69" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ibu Olip]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4245620-cf6a-4053-b19c-78112b39499a" x="578" y="10" width="58" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

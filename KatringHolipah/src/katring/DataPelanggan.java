@@ -26,7 +26,7 @@ public class DataPelanggan extends javax.swing.JFrame {
     Connection connection;
     Statement stat;
     ResultSet rs;
-    String sql, sql1, sql2, roleDB;
+    String sql, sql1, sql2, roleDB, id;
     public DataPelanggan() {
         initComponents();
         ConnectionDB condb = new ConnectionDB();
@@ -74,6 +74,9 @@ public class DataPelanggan extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,7 +208,26 @@ public class DataPelanggan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Terpilih :");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("XX");
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setText("Hapus");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,7 +240,14 @@ public class DataPelanggan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -229,7 +258,14 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jButton4)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -296,6 +332,68 @@ public class DataPelanggan extends javax.swing.JFrame {
         Table1();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        id = jTable1.getModel().getValueAt(row, 0).toString();
+        
+        jLabel5.setText(id);                       
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            // TODO add your handling code here:
+            //quit the launcher
+            
+             
+            int response = JOptionPane.showConfirmDialog(this, "Apakah Anda Yakin menghapus akun yang terpilih?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            switch (response) {
+                case JOptionPane.YES_OPTION:
+                    // delete user,saveddata, savedoption
+                    
+                    String id = jLabel5.getText();
+                    
+                    sql = "SELECT * FROM pelanggan WHERE id = '"+id+"'";
+                    rs = stat.executeQuery(sql);
+                    try {
+                        if(rs.next()){
+                            DeleteUser(id);
+                            JOptionPane.showMessageDialog(null, "Penghapusan Berhasil");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Lanjutkan");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
+                    stat.close();
+                    
+                    DataPelanggan frm = new DataPelanggan();
+                    frm.setVisible(true);
+                    this.dispose();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    break;
+                case JOptionPane.CLOSED_OPTION:
+                    break;
+                default:
+                    break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataPelanggan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    void DeleteUser(String idPesan) throws SQLException
+    {
+        //delete user
+        sql = "DELETE FROM pelanggan WHERE id='"+idPesan+"'";
+        stat.executeUpdate(sql);
+        //stat.close();
+    }
     /**
      * @param args the command line arguments
      */
@@ -335,9 +433,12 @@ public class DataPelanggan extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

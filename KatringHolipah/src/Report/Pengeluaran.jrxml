@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ea95e41-2b9e-4c7e-b833-bbca1cc705fa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select * from pengeluaran]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ket" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="735391a4-01cf-4c83-a26d-e4d3081e2703" style="Title" x="129" y="0" width="380" height="66" forecolor="#000000"/>
+				<textElement>
+					<font size="44" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Catering Ibu Holipah]]></text>
+			</staticText>
+			<image isUsingCache="true">
+				<reportElement uuid="9b06a7de-f85a-41fc-9722-b525529a0747" x="0" y="0" width="99" height="132"/>
+				<imageExpression><![CDATA["https://drive.google.com/uc?export=view&id=1cXqdsfZsshgdnf8FbjFGhz2bUKS3rGzA"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="a9d8448e-4758-405e-93e0-1482acb8515c" x="129" y="96" width="253" height="36"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="22" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Pengeluaran]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="bdb5dc8e-ae11-477b-b0c9-cb7bfa0a08e5" style="Column header" x="0" y="0" width="199" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faa0854a-93e1-4608-adb4-a5009deca4e8" style="Column header" x="199" y="0" width="199" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7b57d7c4-fde3-4bde-bd78-e822315debba" style="Column header" x="398" y="0" width="199" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="662959b9-c689-4844-bc9b-325624f43df6" style="Column header" x="597" y="0" width="199" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jumlah Biaya]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="e043d632-898a-4ab8-b175-634d1a756ea8" style="Row" mode="Opaque" x="0" y="0" width="797" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="6be63f5d-6aad-4651-a9d6-e798b6fa500a" style="Detail" positionType="Float" x="0" y="0" width="199" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="cd67d723-6e91-4ceb-bc1e-33021b16c472" style="Detail" positionType="Float" x="199" y="0" width="199" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="4b796315-4580-41e3-ad1e-1c40ab88ab2a" style="Detail" positionType="Float" x="398" y="0" width="199" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ket}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="aa75e657-50cf-412e-8b9a-8db348826a38" style="Detail" positionType="Float" x="597" y="0" width="199" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{jumlah}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="69dfc2d3-9a96-4e88-aad1-58179308fcdf" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="139" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c4245620-cf6a-4053-b19c-78112b39499a" x="679" y="112" width="69" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ibu Olip]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="914a09c5-eebd-4d39-8706-0a71aa464a95" style="Column header" x="636" y="18" width="166" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c4245620-cf6a-4053-b19c-78112b39499a" x="578" y="18" width="58" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

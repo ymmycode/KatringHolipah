@@ -5,6 +5,10 @@
  */
 package katring;
 
+/**
+ *
+ * @author achma
+ */
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.awt.BorderLayout;
@@ -25,47 +29,54 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-/**
- *
- * @author achma
- */
-public class BuktiKatring extends javax.swing.JFrame {
+
+public class ReportPemesananKatring extends javax.swing.JFrame {
 
     /**
-     * Creates new form BuktiKatring
+     * Creates new form ReportPemesananKatring
      */
     Connection connection;
-    Statement stat,stat1,stat2;
+    java.sql.Statement stat,stat1,stat2;
     ResultSet rs;
-    String total, sql, sql1, sql2, roleDB, idPesan;
+    String total, sql, sql1, sql2, roleDB, id, nowMonth;
     
-    public BuktiKatring(String id) {
-        initComponents();
-        ConnectionDB condb = new ConnectionDB();
-        condb.Config();
-        connection = (Connection) condb.connect;
-        stat = (Statement) condb.stmt;
-        idPesan = id;
-        BuktiKatring();
+    public ReportPemesananKatring(String month) {
+        try {
+            initComponents();
+            this.setLocationRelativeTo(null);
+            ConnectionDB condb = new ConnectionDB();
+            condb.Config();
+            connection = (Connection) condb.connect;
+            stat = (Statement) condb.stmt;
+            nowMonth = month;
+            Process();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReportPemesananKatring.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private BuktiKatring() {
+    private ReportPemesananKatring() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void BuktiKatring() {
+    private void Process() throws FileNotFoundException
+    {
         try{
             ConnectionDB condb = new ConnectionDB();
             condb.Config();
             connection = (Connection) condb.connect;
-            stat = (com.mysql.jdbc.Statement) condb.stmt;
+            stat = (Statement) condb.stmt;
             
             Map prs = new HashMap();
         
-            InputStream filePath = getClass().getResourceAsStream("/Report/BuktiKatring.jrxml");
+            //String reportPath = System.getProperty("user.dir") + "/src/Report/ApprovementReport.jrxml";
+            
+            InputStream filePath = getClass().getResourceAsStream("/Report/TotalPemesananKatring.jrxml");
             JasperDesign jd1 = JRXmlLoader.load (filePath);
             
-            sql = "select catering.idPesan, catering.tanggal, catering.nama, catering.detail, bayarcatering.harga, catering.alamat, catering.status from catering,bayarcatering where catering.idPesan = '"+idPesan+"' AND catering.idPesan = bayarcatering.idPesan";
+            
+            sql = "select catering.idPesan, catering.tanggal,catering.nama, catering.detail, catering.status\n" +
+                "from catering, bayarcatering where catering.idPesan = bayarcatering.idPesan and catering.tanggal like '% "+nowMonth+"%'";
             JRDesignQuery newQuery = new JRDesignQuery();
             newQuery.setText(sql);
             jd1.setQuery(newQuery);
@@ -80,7 +91,6 @@ public class BuktiKatring extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,20 +133,20 @@ public class BuktiKatring extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuktiKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPemesananKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuktiKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPemesananKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuktiKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPemesananKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuktiKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPemesananKatring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuktiKatring().setVisible(true);
+                new ReportPemesananKatring().setVisible(true);
             }
         });
     }

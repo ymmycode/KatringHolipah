@@ -65,7 +65,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Pesan Katring");
+        jButton2.setText("Pesan Catering");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -154,18 +154,43 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton11.setText("Laporan Pengeluaran");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton10.setText("Laporan Total Pemesanan Paket");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("Laporan Total Pemesanan Catering");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Bukti Pemesanan Katring");
+        jButton9.setText("Bukti Pemesanan Paket");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Bukti Pemesanan Paket");
+        jButton8.setText("Bukti Pemesanan Catering");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton6.setText("Exit");
@@ -294,6 +319,41 @@ public class MainMenu extends javax.swing.JFrame {
         frm.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        CetakKatring frm = new CetakKatring();
+        frm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        CetakPaket frm = new CetakPaket();
+        frm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        CetakPemesananKatring frm = new CetakPemesananKatring();
+        frm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        CetakPemesananPaket frm = new CetakPemesananPaket();
+        frm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        CetakPengeluaran frm = new CetakPengeluaran();
+        frm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

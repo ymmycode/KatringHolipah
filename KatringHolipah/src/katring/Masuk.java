@@ -164,13 +164,12 @@ public class Masuk extends javax.swing.JFrame {
         //login
         try {
             ProccessAutenthication();
-            MainMenu frm = new MainMenu();
-            frm.setVisible(true);
-            dispose();
         } catch (HeadlessException ex) {
             Logger.getLogger(Masuk.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Login Gagal");
         } catch (SQLException ex) {
             Logger.getLogger(Masuk.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Login Gagal");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -188,13 +187,12 @@ public class Masuk extends javax.swing.JFrame {
   
                 setVisible(false);
                 
-                //dashboard
-                //Dashboard dsb = new Dashboard();
-                //dsb.setVisible(true);
+                MainMenu frm = new MainMenu();
+                frm.setVisible(true);
+                dispose();
                 
                 
                 Clear();
-                this.dispose();
             }
             rs.close();
             stat.close();
